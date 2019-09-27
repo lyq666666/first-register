@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>小川的注册</title>
+		<script type="text/javascript">
+			var code;//验证码
+			var ifdown=new Array(6);//标志是否注册成功的标志变量
+			for(var k=0;k<6;k++)
+			{
+				ifdown[k]=false;
+			}
+			function createcode()
+			{
+				//生成四位数的验证码
+				code=Math.floor(Math.random()*9000+1000);
+				//获取对象
+				var span=document.getElementById("validspan");
+				
+				span.innerHTML=code;
+			
+			}
+			
+			function validation()
+			{
+				var incode=document.getElementById("valid").value;
+				
+				var vaspan=document.getElementById("vvv");
+				if(incode.length<=0)
+				{
+					vaspan.innerHTML="验证码不能为空";
+					vaspan.style.color="red";
+				}
+				else if(incode!=code)
+				{
+					vaspan.innerHTML="验证码错误";
+					vaspan.style.color="red";
+					
+				}
+				else
+				{
+					vaspan.innerHTML="验证码正确";
+					vaspan.style.color="aquamarine";
+					ifdown[5]=true;
+				}
+			}
+			function Checkuname()
+			{
+				//获取输入的用户名信息
+				var uname=document.getElementById("uname").value;
+				//定义自己的用户名要求对应的正则表达式
+				var reg=/^[a-zA-Z0-9_]{3,16}$/;
+				//获取span对象
+				var uspan=document.getElementById("unamespan");
+				// uspan.style.color="black";
+				// uspan.innerHTML="用户名由3~16位的数字字母和下划线组成";//显示用户名注册规则
+				// 
+				//以下进行相应的判断u
+				if(uname==""||uname==null)//输入为空的情况
+				{
+					uspan.innerHTML="用户名不能为空";
+					uspan.style.color="red";
+		
+				}
+				else if(reg.test(uname))
+				{
+					uspan.innerHTML="用户名正确";
+					uspan.style.color="aquamarine";
+					ifdown[0]=true;
+				}
+				else
+				{
+					uspan.innerHTML="用户名必须由3~16位的数字字母和下划线组成";
+					uspan.style.color="red";
+				}
+				
+			}
+			function Checkpwd()
+			{
+				//获取密码值 
+				var pwd=document.getElementById("pwd").value;
+				//
+				var reg=/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,16}$/;
+				
+				var pwdspan=document.getElementById("pwdspan");
+				
+				//以下进行相应的判断u
+				if(pwd==""||pwd==null)//输入为空的情况
+				{
+					pwdspan.innerHTML="密码不能为空";
+					pwdspan.style.color="red";
+						
+				}
+				else if(reg.test(pwd))
+				{
+					pwdspan.innerHTML="密码符合规则";
+					pwdspan.style.color="aquamarine";
+					ifdown[1]=true;
+				}
+				else
+				{
+					pwdspan.innerHTML="密码不合规则";
+					pwdspan.style.color="red";
+				}
+				
+			}
+			
+			function ChcekpwdAgain()
+			{
+				var pwd1=document.getElementById("pwd").value;
+				var pwd2=document.getElementById("cpwd").value;
+				var cpwdspan=document.getElementById("cpwdspan");
+				
+				if(pwd2.length<=0)
+				{
+					cpwdspan.innerHTML="请再次输入密码";
+					cpwdspan.style.color="red";
+				}
+				else if(pwd1==pwd2)
+				{
+					cpwdspan.innerHTML="密码确认成功";
+					cpwdspan.style.color="aquamarine";
+					ifdown[2]=true;
+				}
+				else
+				{
+					cpwdspan.innerHTML="两次密码输入不一致";
+					cpwdspan.style.color="red";
+				}
+			}
+			function Checkemail()
+			{
+				var email=document.getElementById("email").value;
+				
+				var reg=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+				
+				var span=document.getElementById("emailspan");
+				if(email.length<=0)
+				{
+					span.innerHTML="邮箱不能为空";
+					span.style.color="red";
+				}
+				else if(reg.test(email))
+				{
+					span.innerHTML="邮箱填写正确";
+					span.style.color="aquamarine";
+					ifdown[3]=true;
+				}
+				else
+				{
+					span.innerHTML="邮箱格式错误";
+					span.style.color="red";
+				}
+			}
+			
+			function Checkphone()
+			{
+				var phone=document.getElementById("phone").value;
+				
+				var reg=/^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57]|19[0-9]|16[0-9])[0-9]{8}$/;
+				
+				var span=document.getElementById("phone-span");
+				
+				if(phone.length<=0)
+				{
+					span.innerHTML="手机号不能为空";
+					span.style.color="red";
+				}
+				else if(reg.test(phone))
+				{
+					span.innerHTML="手机号填写正确";
+					span.style.color="aquamarine";
+					ifdown[4]=true;
+					
+				}
+				else{
+					span.innerHTML="手机号格式错误";
+					span.style.color="red";
+				}
+			}
+			
+			
+			/* 定义相应的停留毫秒数s */
+			// var ms=1;
+			
+			// function Tologin()
+			// {
+			// 	var login=document.getElementById("register");
+			// 	if(ms>=0)
+			// 	{
+			// 		login.innerHTML="<span id='loginspan'>注册成功啦！！！将在"+ms+"秒后自动跳转到NBA中国官网</span><a href='https://china.nba.com/'>点击此处直接跳转</a>";
+			// 		//alert("注册成功啦！！！将在"+ms+"秒后自动跳转到NBA中国官网</span><a href='https://china.nba.com/'>点击此处直接跳转</a>");
+			// 	}
+			// 	else{
+			// 		// window.location.href="https://china.nba.com/";
+			// 		window.location.href="success.html";
+			// 	}
+			// 	ms--;
+			// }
+			
+			function Tologin()
+			{
+				
+			}
+			function registersubmit()
+			{
+				//每一秒执行一次上面的函数
+				setInterval(Tologin,1000);
+			}
+			
+			var Ifsuccess=false;
+			/* 检测是否成功注册 */
+			function Checksucess()
+			{
+				var ifwrong=false;
+				for(var i=0;i<6;i++)
+				{
+					if(ifdown[i]==false)
+					{
+						ifwrong=true;
+						break;
+					}
+					
+				}
+				if(ifwrong==false)
+				{
+					
+					window.location.href="success.html";
+					
+					
+				}
+				else{
+					alert("请正确完整地填写注册信息!");
+				}
+				
+			}
+		</script>
+		<style type="text/css">
+		/* 	div样式 */
+			#s-div
+			{
+				height:750px;
+				width: 700px;
+				/* 以下为透明度s */
+				opacity: 0.9;
+				margin: auto;
+			}
+			/* table样式 */
+			#table-style
+			{
+				align-content: center;
+				width: 700px;
+				height: 500px;
+				font-size: 20px;
+				font-style: italic;
+				font-family: "隶书";
+				
+				
+				
+			}
+			/* 提交按钮的样式 */
+			.submit-button
+			{
+				width: 90px;
+				height: 60px;
+				/* border: none; */  
+				background-color: lightsteelblue;
+				background-image:url(img/logo.jpg);//给按钮增加背景图片
+				font-family:"STCaiyun";
+				
+			}
+		</style>
+	</head>
+	<body onload="createcode()" style="background: url(img/9999.jpg);align-content: center;" >
+		<h3 align="center" style="font-size: 30px;background: url();"><font size="30px" face="STCaiyun" color="blueviolet">欢迎来到篮球之家进行注册</font></h3>
+		<div id="s-div" align="center" style="background: url(img/background.jpg);"><!-- //设置div样式 -->
+			<form action="#" method="get">
+			
+				<table id="table-style" cellpadding="2px" cellspacing="2" style=" ">
+					<tr>
+						<td width="40px"><font face="STCaiyun" size="" color="powderblue">用户名</font></td>
+						<td >
+							<input type="text" name="uname" id="uname" value="" onblur="Checkuname()" placeholder="由3~16位数字字母和下划线组成"/><span id="unamespan">
+								
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="40px"><font face="STCaiyun" size="" color="powderblue">密码</font</td>
+						<td><input type="password" name="pwd" id="pwd" value="" onblur="Checkpwd()" placeholder="由6~16位的数字字母组成"/><span id="pwdspan">
+							
+						</span>
+						
+						</td>
+					</tr>
+					<tr>
+						<td><font face="STCaiyun" size="" color="powderblue">确认密码</font></td>
+						<td><input type="password" name="" id="cpwd" value="" onblur="ChcekpwdAgain()"/><span id="cpwdspan">
+							
+						</span>
+						
+						</td>
+					</tr>
+					<tr>
+						<td><font face="STCaiyun" size="" color="powderblue">性别</font></td>
+						<td>
+							<input type="radio" name="性别" id="" value="男" /><font face="STCaiyun" size="" color="greenyellow">男</font>
+							<input type="radio" name="性别" id="" value="女" /><font face="STCaiyun" size="" color="coral">女</font>
+							</td>
+					</tr>
+					<tr>
+						<td><font face="STCaiyun" size="" color="powderblue">你喜欢的NBA球星是</font></td>
+						<td>&nbsp
+							<select style="width: 140px;height: 30px;">
+								<option value ="fav-player">勒布朗·詹姆斯</option>
+								<option value ="fav-player">科比·布莱恩特</option>
+								<option value ="fav-player">沙奎·奥尼尔</option>
+							</select>
+							
+						</td>
+					</tr>
+					<tr>
+						<td><font face="STCaiyun" size="" color="powderblue">邮箱</font></td>
+						<td><input type="text" name="" id="email" value="" onblur="Checkemail()"/>
+						<!-- <span id="emailsapn">
+							
+						</span> -->
+						<span id="emailspan">
+							
+						</span>
+						</td>
+					</tr>
+					<tr>
+						<td><font face="STCaiyun" size="" color="powderblue">手机号</font></td>
+						<td><input type="text" name="" id="phone" value="" onblur="Checkphone()"/>
+						<span id="phone-span">
+							
+						</span>
+						
+						</td>
+					</tr>
+					
+					<tr>
+						<td width="40px"><font face="STCaiyun" size="" color="powderblue">验证码</font> &nbsp;
+						
+							<input type="text" name="" id="valid" value="" onblur="validation()" width="40px"/>
+							<span id="validspan" style="background-image: url(img/111.gif);width: 100px;" >
+								
+							</span>
+							<br>
+							<span id="vvv" width="">
+								
+							</span>
+						</td>
+							
+						<td>
+							
+						</td>
+					</tr>
+					
+				</table>
+				<div id="register">
+					
+					<input id="login" class="submit-button" type="submit" value="注册" onclick="Checksucess()" style="font-family:STXingkai;font-size: 30px;color: lime;"/>
+					<!-- <input id="login" class="submit-button" type="submit" value="注册" onclick="registersubmit()"/> -->
+				</div>
+				
+			</form>
+		</div>
+		<div id="">
+			
+		</div>
+	</body>
+</html>
